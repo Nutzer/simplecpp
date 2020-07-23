@@ -70,6 +70,10 @@ static const simplecpp::TokenString ENDIF("endif");
 static const simplecpp::TokenString PRAGMA("pragma");
 static const simplecpp::TokenString ONCE("once");
 
+static const simplecpp::TokenString INS("ins");
+static const simplecpp::TokenString ECLMAP("eclmap");
+static const simplecpp::TokenString NOWARN("nowarn");
+
 template<class T> static std::string toString(T t)
 {
     std::ostringstream ostr;
@@ -2851,6 +2855,8 @@ void simplecpp::preprocess(simplecpp::TokenList &output, const simplecpp::TokenL
                 }
             } else if (ifstates.top() == TRUE && rawtok->str() == PRAGMA && rawtok->next && rawtok->next->str() == ONCE && sameline(rawtok,rawtok->next)) {
                 pragmaOnce.insert(rawtok->location.file());
+            } else if(rawtok->str() == ECLMAP || rawtok->str() == INS || rawtok->str() == NOWARN) {
+              output.push_back(new Token("#" + rawtok->str() + " " + rawtok->next->str(), rawtok->location));
             }
             rawtok = gotoNextLine(rawtok);
             continue;

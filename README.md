@@ -1,4 +1,5 @@
-# Simple C/C++ preprocessor
+# Simple C/C++ preprocessor (Modified to include ECL instructions)
+(Ignores #ins, #eclmap and #nowarn)
 
 This is a simple C/C++ preprocessor.
 
